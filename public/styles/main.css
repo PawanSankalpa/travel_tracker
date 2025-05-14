@@ -1,0 +1,192 @@
+/* styles/main.css */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #3498db;
+  --accent-color: #1abc9c;
+  --dark-bg: #1a1a1a;
+  --text-color: #ecf0f1;
+  --hover-color: #e54363;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(to right bottom, #2c3e50, #1a1a1a);
+  color: var(--text-color);
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem;
+  animation: fadeIn 1s ease-in;
+}
+
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+  display: flex;
+  gap: 1rem;
+  animation: slideDown 0.8s ease-out;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  font-size: large;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px rgba(26, 188, 156, 0.3);
+}
+
+button[type="submit"] {
+  padding: 1rem 2rem;
+  background: var(--accent-color);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+button[type="submit"]:hover {
+  background: var(--hover-color);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+.ag-canvas {
+  max-width: 1000px;
+  margin: 2rem auto;
+  filter: drop-shadow(0 0 10px rgba(26, 188, 156, 0.2));
+}
+
+.ag-canvas_svg {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.ag-canvas_svg:hover {
+  transform: scale(1.02);
+}
+
+path {
+  fill: var(--primary-color);
+  stroke: var(--text-color);
+  stroke-width: 0.5;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+path:hover {
+  fill: var(--hover-color);
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+.total-count {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 2rem 0;
+  color: var(--accent-color);
+  animation: pulse 2s infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes countryHighlight {
+  from { fill: var(--primary-color); }
+  to { fill: var(--accent-color); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  form {
+    flex-direction: column;
+    margin: 1rem;
+  }
+
+  .ag-canvas {
+    margin: 1rem;
+  }
+
+  .total-count {
+    font-size: 1.2rem;
+  }
+}
+
+/* Pop-up Message Styles */
+.popup {
+  position: fixed;
+  top: 0rem;
+  left: 39%;
+  transform: translateX(-50%);
+  background-color: rgba(27, 29, 28, 0.95); /* match --accent-color */
+  color: var(--text-color);
+  padding: 0rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  font-size: 1rem;
+  font-weight: 500;
+  z-index: 9999;
+  transition: all 0.4s ease;
+  animation: popupFadeIn 0.4s ease;
+}
+
+.popup.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 20px);
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Responsive Popup */
+@media (max-width: 480px) {
+  .popup {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+    bottom: 1rem;
+  }
+}
+
