@@ -51,10 +51,10 @@ npm install
 Create a .env file in the root directory and fill in your PostgreSQL credentials:
 
 ``` env
-PG_USER=your_user |
-PG_HOST=localhost |
-PG_DATABASE=your_db |
-PG_PASSWORD=your_password |
+PG_USER=your_user
+PG_HOST=localhost
+PG_DATABASE=your_db
+PG_PASSWORD=your_password 
 PG_PORT=5432
 ```
 
