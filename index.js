@@ -16,40 +16,39 @@ app.use(express.static("public"));
 env.config();
 
 const db = new pg.Client({
-  user: process.env.PG_USER,
-  host: process.env.PG_HOST,
-  database: process.env.PG_DATABASE,
-  password: process.env.PG_PASSWORD,
-  port: process.env.PG_PORT,
-});
+  connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false, // Required for some hosted DBs like Supabase
+    },
+  }); 
 
 db.connect();
 /* --------------insert the csv file into the database--------------- */
 
 // once you run this code you can comment it out (the data inserting part)
 
-// const countries_insert = [];
+const countries_insert = [];
 
-// fs.createReadStream("countries.csv")
-//   .pipe(csv())
-//   .on("data", (row) => {
-//     countries_insert.push(row);
-//   })
-//   .on("end", async () => {
-//     for (const country of countries_insert) {
-//       const country_code = country.country_code;
-//       const country_name = country.country_name;
+fs.createReadStream("countries.csv")
+  .pipe(csv())
+  .on("data", (row) => {
+    countries_insert.push(row);
+  })
+  .on("end", async () => {
+    for (const country of countries_insert) {
+      const country_code = country.country_code;
+      const country_name = country.country_name;
 
-//       try {
-//         await db.query(
-//           "INSERT INTO countries (country_code, country_name) VALUES ($1, $2)",
-//           [country_code, country_name]
-//         );
-//       } catch (error) {
-//         console.error(`❌ Error inserting ${country_name}:`, error.message);
-//       }
-//     }
-//   });
+      try {
+        await db.query(
+          "INSERT INTO countries (country_code, country_name) VALUES ($1, $2)",
+          [country_code, country_name]
+        );
+      } catch (error) {
+        console.error(`❌ Error inserting ${country_name}:`, error.message);
+      }
+    }
+  });
 
 
 
